@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <title>עכבר מזויף</title>
+  <style>
+    html {
+      cursor: none;
+      background-color: #c0c4ff;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    #fakeCursor {
+      position: fixed;
+      width: 32px;
+      height: 32px;
+      background-image: url('../cursor.png');
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>שלום 😵</h1>
+  <div id="fakeCursor"></div>
+  <script>
+    const fakeCursor = document.getElementById('fakeCursor');
+    let posX = Math.random() * window.innerWidth;
+    let posY = Math.random() * window.innerHeight;
+    let directionX = 0;
+    let directionY = 0;
+
+    function setRandomDirection() {
+      directionX = (Math.random() - 0.5) * 10;
+      directionY = (Math.random() - 0.5) * 10;
+    }
+
+    function moveFakeCursor() {
+      posX += directionX;
+      posY += directionY;
+  
+      if (posX <= 0 || posX >= window.innerWidth - 32) directionX *= -1;
+      if (posY <= 0 || posY >= window.innerHeight - 32) directionY *= -1;
+
+      fakeCursor.style.left = `${posX}px`;
+      fakeCursor.style.top = `${posY}px`;
+    }
+
+    setInterval(setRandomDirection, 100);
+  
+    setInterval(moveFakeCursor, 5);
+  
+    document.addEventListener('mouseover', () => {
+      fakeCursor.style.display = 'block';
+    });
+
+    document.addEventListener('mouseout', e => {
+      if (!e.relatedTarget && !e.toElement) {
+        fakeCursor.style.display = 'none';
+      }
+    });
+    
+    oncontextmenu = e => e.preventDefault();
+  </script>
+</body>
+</html>
