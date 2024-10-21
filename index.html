@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <title>עכבר מזויף</title>
+  <style>
+    html {
+      cursor: none;
+      background-color: #c0c4ff;
+    }
+
+    #fakeCursor {
+      position: fixed;
+      width: 32px;
+      height: 32px;
+      background-image: url('cursor.png');
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>שלום 😵</h1>
+  <div id="fakeCursor"></div>
+  <script>
+    const fakeCursor = document.getElementById('fakeCursor');
+  
+    setInterval(() => {
+      fakeCursor.style.left = `${Math.random() * window.innerWidth}px`;
+      fakeCursor.style.top = `${Math.random() * window.innerHeight}px`;
+    }, 200);
+  
+    document.addEventListener('mouseout', e => {
+      if (!e.relatedTarget && !e.toElement)
+        fakeCursor.style.display = 'none';
+    });
+  
+    document.addEventListener('mouseover', () => {
+      fakeCursor.style.display = 'block';
+    });
+  
+    oncontextmenu = e => e.preventDefault();
+  </script>
+</body>
+</html>
